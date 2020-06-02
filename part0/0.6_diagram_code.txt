@@ -1,0 +1,26 @@
+note over browser:
+user enters note contents and presses the save button to submit their content
+end note
+note over browser:
+Event handler catches save event from the form
+end note
+note over browser:
+Event handler avoids the page reloading 
+end note
+note over browser:
+Event handler appends new note to list of notes
+end note
+note over browser:
+The event handler renders notes to display
+end note
+note over browser:
+The event handler renders notes to display
+end note
+note over browser:
+The event handler calls the send to server function
+to send a post request with the data from the note 
+in a json format containing the content and the date.
+end note
+
+browser->server: HTTP POST https://fullstack-exampleapp.herokuapp.com/new_note_spa
+server-->browser: Status code 201
