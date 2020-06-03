@@ -13,13 +13,7 @@ const Part  = (props) => {
   return (
     <>
       <p>
-        {props.cont1} {props.ex1}
-      </p>
-      <p>
-        {props.cont2} {props.ex2}
-      </p>
-      <p>
-        {props.cont3} {props.ex3}
+        {props.cont} {props.ex}
       </p>
     </>
   )
@@ -28,9 +22,9 @@ const Part  = (props) => {
 const Content  = (props) => {
   return (
     <>
-      <Part cont1={props.part1_} ex1={props.exercises1_} />
-      <Part cont2={props.part2_} ex2={props.exercises2_}/>
-      <Part cont3={props.part3_} ex3={props.exercises3_}/>
+      <Part cont={props.part1_} ex={props.exercises1_} />
+      <Part cont={props.part2_} ex={props.exercises2_}/>
+      <Part cont={props.part3_} ex={props.exercises3_}/>
     </>
   )
 }
