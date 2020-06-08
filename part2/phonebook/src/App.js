@@ -1,5 +1,40 @@
 import React, { useState } from 'react'
 
+
+const Filter  = ({inputValue,filterFunction}) => {
+  return (
+      <div>
+        filter show for: <input value={inputValue}
+        onChange={filterFunction}/>
+      </div>
+  )
+}
+
+const PersonForm   = ({onSubmitFun,nameInput,nameFunc,numberInput,numberFunc}) => {
+  return (
+    <form onSubmit={onSubmitFun}>
+    <div>
+      name: <input value={nameInput}
+      onChange={nameFunc}/>
+    </div>
+    <div>
+      number: <input value={numberInput}
+      onChange={numberFunc}/>
+    </div>
+    <div>
+      <button type="submit">add</button>
+    </div>
+  </form>
+  )
+}
+
+const Persons   = ({persons,currFilter}) => {
+  return (
+    (persons.filter(person => (person.name).includes(currFilter))).map(person => 
+      <p key={person.id}>{person.name} {person.number}</p>)
+  )
+}
+
 const App = () => {
   const [ persons, setPersons ] = useState([
     { name: 'Arto Hellas', number: '39-44-5323523', id:1 },
@@ -46,27 +81,11 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-          filter show for: <input value={currFilter}
-          onChange={handleFilter}/>
-        </div>
+      <Filter inputValue={currFilter} filterFunction={handleFilter}/>
       <h2>Add a new entry</h2>
-      <form onSubmit={addPerson}>
-        <div>
-          name: <input value={newName}
-          onChange={handleNameAddition}/>
-        </div>
-        <div>
-          number: <input value={newNumber}
-          onChange={handleNumberAddition}/>
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <PersonForm onSubmitFun={addPerson} nameInput={newName} nameFunc={handleNameAddition} numberInput={newNumber} numberFunc={handleNumberAddition} />
       <h2>Numbers</h2>
-        {(persons.filter(person => (person.name).includes(currFilter))).map(person => 
-          <p key={person.id}>{person.name} {person.number}</p>)}
+        <Persons persons={persons} currFilter={currFilter}/>
     </div>
   )
 }
