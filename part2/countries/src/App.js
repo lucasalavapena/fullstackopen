@@ -11,7 +11,7 @@ const Filter  = ({inputValue,filterFunction}) => {
   )
 }
 
-const Country   = ({country}) => {
+const CountryView   = ({country}) => {
   return (
     <>
     <h1> {country.name} </h1>
@@ -25,13 +25,16 @@ const Country   = ({country}) => {
     </>
   )
 }
+// const CountryShow   = ({country}) => {
+//   setFilter(country.name)
+// }
 
 const Countries   = ({countries,currFilter}) => {
   return (
     // (countries.filter(country => (country.name).includes(currFilter))).map(country => 
     //   <p key={country.alpha3Code}>{country.name}</p>)
     (countries.filter(country => (country.name).includes(currFilter))).map(country => 
-      <p key={country.alpha3Code}>{country.name}</p>)
+      <p key={country.alpha3Code}>{country.name} <button onClick={() => Filter({country})}>show</button></p>)
   )
 }
 
@@ -40,7 +43,12 @@ const Result   = ({countries,currFilter}) => {
   let filterCountries = (countries.filter(country => (country.name).includes(currFilter)))
   if (filterCountries.length === 1) {
     return (
-      <Country country={filterCountries[0]} currFilter={currFilter}/>
+      <CountryView country={filterCountries[0]} currFilter={currFilter}/>
+    )
+  } 
+  else if (filterCountries.length> 10) {
+    return (
+      <p> Too many matches, specify another filter </p>
     )
   }
   else {
@@ -65,12 +73,10 @@ const App = () => {
       })
   }, [])
   
-
   const handleFilter = (event) => {
     setFilter((event.target.value))
   }
   
-
   return (
     <div>
       <Filter inputValue={currFilter} filterFunction={handleFilter}/>
