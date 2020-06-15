@@ -29,6 +29,7 @@ const PersonForm   = ({onSubmitFun,nameInput,nameFunc,numberInput,numberFunc}) =
   )
 }
 
+
 const Persons   = ({persons,currFilter}) => {
   return (
     (persons.filter(person => (person.name).includes(currFilter))).map(person => 
@@ -81,7 +82,7 @@ const App = () => {
   const handleFilter = (event) => {
     setFilter((event.target.value))
   }
-  
+
 
   return (
     <div>
