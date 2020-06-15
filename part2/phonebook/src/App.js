@@ -1,41 +1,9 @@
 import React, { useState,useEffect  } from 'react'
+import { Filter, PersonForm, Persons } from './Components/Person'
 import personService from './Services/phonebook'
 
 
-const Filter  = ({inputValue,filterFunction}) => {
-  return (
-      <div>
-        filter show for: <input value={inputValue}
-        onChange={filterFunction}/>
-      </div>
-  )
-}
 
-const PersonForm   = ({onSubmitFun,nameInput,nameFunc,numberInput,numberFunc}) => {
-  return (
-    <form onSubmit={onSubmitFun}>
-    <div>
-      name: <input value={nameInput}
-      onChange={nameFunc}/>
-    </div>
-    <div>
-      number: <input value={numberInput}
-      onChange={numberFunc}/>
-    </div>
-    <div>
-      <button type="submit">add</button>
-    </div>
-  </form>
-  )
-}
-
-
-const Persons   = ({persons,currFilter}) => {
-  return (
-    (persons.filter(person => (person.name).includes(currFilter))).map(person => 
-      <p key={person.id}>{person.name} {person.number}</p>)
-  )
-}
 
 const App = () => {
   const [ persons, setPersons ] = useState([]) 
@@ -54,23 +22,43 @@ const App = () => {
     const nameObject = {
       name: newName,
       number: newNumber,
-      id:persons.length+1
+      id:persons[Object.keys(persons)[Object.keys(persons).length-1]].id+1
     }
+    let originalEntry = persons.find(person => person.name === newName)
 
-    let person_names = persons.map(person => person.name)
+    if (originalEntry) {
+      if (originalEntry.number ===  newNumber) {
+        window.alert(`${newName} is already added to phonebook`)
+      }
+      else{
+        const result = window.confirm(`${newName} has already been added to the phone book, do you want to replace the old number with the newly input number?`);
+        if (result) {
+          nameObject.id = originalEntry.id
+          personService.update(originalEntry.id,nameObject).then(updatedPerson => {
+            setPersons(persons.map(person => person.id !== nameObject.id  ? person:nameObject))
+            setNewName('')
+            setNewNumber('')
+          })
+        }
+      }
 
-    if ((person_names).includes(newName)) {
-      window.alert(`${newName} is already added to phonebook`)
     }
     else {
       personService.create(nameObject).then(response => {
-        setPersons(persons.concat(response.data))
+        setPersons(persons.concat(response))
         setNewName('')
         setNewNumber('')
       })
-
     }
+
   }  
+
+  
+  const handleEntryDeletion = (id) => {
+    personService.deleteEntry(id)
+    const newPersons = persons.filter(x => x.id !== id)
+    setPersons(newPersons)
+  }
 
   const handleNameAddition = (event) => {
     setNewName(event.target.value)
@@ -78,7 +66,7 @@ const App = () => {
   const handleNumberAddition = (event) => {
     setNewNumber(event.target.value)
   }
-  
+
   const handleFilter = (event) => {
     setFilter((event.target.value))
   }
@@ -91,7 +79,7 @@ const App = () => {
       <h2>Add a new entry</h2>
       <PersonForm onSubmitFun={addPerson} nameInput={newName} nameFunc={handleNameAddition} numberInput={newNumber} numberFunc={handleNumberAddition} />
       <h2>Numbers</h2>
-        <Persons persons={persons} currFilter={currFilter}/>
+        <Persons persons={persons} currFilter={currFilter} deleteEntry={handleEntryDeletion}/>
     </div>
   )
 }
