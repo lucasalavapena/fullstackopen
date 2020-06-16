@@ -33,7 +33,7 @@ const Persons   = ({persons,currFilter,deleteEntry}) => {
   // console.log(persons.find(x => x.id === 2))
   
   function deletePerson(person,deleteEntry) {
-    const result = window.confirm(`Delete ${person.name} ?`);
+    const result = window.confirm(`Do you want to delete '${person.name}'?`);
     if (result) {
       // console.log(persons)
       deleteEntry(person.id)

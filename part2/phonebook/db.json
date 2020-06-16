@@ -2,18 +2,13 @@
   "persons": [
     {
       "name": "Daniel R",
-      "number": "010-010010",
+      "number": "21",
       "id": 5
     },
     {
       "name": "Yoyo",
       "number": "123-123456",
       "id": 6
-    },
-    {
-      "name": "Kobe",
-      "number": "824",
-      "id": 11
     },
     {
       "name": "Luke",
@@ -29,11 +24,6 @@
       "name": "Palpatine",
       "number": "66",
       "id": 14
-    },
-    {
-      "name": "dasd",
-      "number": "3232",
-      "id": 15
     },
     {
       "name": "Lord Voldemort",

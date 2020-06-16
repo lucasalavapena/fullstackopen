@@ -1,15 +1,43 @@
 import React from 'react'
 
-const Notification = ({ message }) => {
+const commonStyle = {
+  background: 'lightgrey',
+  fontSize: 20,
+  borderStyle: 'solid',
+  borderRadius: 5,
+  padding: 10,
+  marginBottom: 10,
+}
+
+
+
+const SuccessfulNotification = ({ message }) => {
   if (message === null) {
     return null
   }
+  const successfulStyle = {...commonStyle,color: 'green'}
+
 
   return (
-    <div className="error">
+    <div style={successfulStyle}>
+      {message}
+    </div>
+  )
+}
+const UnSuccessfulNotifcation = ({ message }) => {
+  if (message === null) {
+    return null
+  }
+  const unsuccessfulStyle = {...commonStyle,color: 'red'}
+
+  return (
+    <div style={unsuccessfulStyle}>
       {message}
     </div>
   )
 }
 
-export default Notification
+
+
+
+export {SuccessfulNotification, UnSuccessfulNotifcation} 
