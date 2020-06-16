@@ -1,5 +1,6 @@
 import React, { useState,useEffect  } from 'react'
 import { Filter, PersonForm, Persons } from './Components/Person'
+import Notification from './Components/Notification'
 import personService from './Services/phonebook'
 
 
@@ -10,12 +11,21 @@ const App = () => {
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ currFilter, setFilter ] = useState('')
+  const [notificationMessage, setNotificationMessage] = useState(null)
+
 
   useEffect(() => {
     personService.getAll().then(response => {
         setPersons(response)
       })
   }, [])
+
+  function sendNotificationMessage (Name,action) {
+    setNotificationMessage(`${Name} has been ${action}`)
+    setTimeout(() => {
+      setNotificationMessage(null)
+    }, 1500) 
+  }
   
   const addPerson = (event) => {
     event.preventDefault()
@@ -38,6 +48,7 @@ const App = () => {
             setPersons(persons.map(person => person.id !== nameObject.id  ? person:nameObject))
             setNewName('')
             setNewNumber('')
+            sendNotificationMessage(newName,"updated")
           })
         }
       }
@@ -45,6 +56,7 @@ const App = () => {
     }
     else {
       personService.create(nameObject).then(response => {
+        sendNotificationMessage(newName,"added")
         setPersons(persons.concat(response))
         setNewName('')
         setNewNumber('')
@@ -75,6 +87,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={notificationMessage} />
       <Filter inputValue={currFilter} filterFunction={handleFilter}/>
       <h2>Add a new entry</h2>
       <PersonForm onSubmitFun={addPerson} nameInput={newName} nameFunc={handleNameAddition} numberInput={newNumber} numberFunc={handleNumberAddition} />

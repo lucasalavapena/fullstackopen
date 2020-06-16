@@ -1,11 +1,6 @@
 {
   "persons": [
     {
-      "name": "Ada Lovelace",
-      "number": "39-44-5323523",
-      "id": 2
-    },
-    {
       "name": "Daniel R",
       "number": "010-010010",
       "id": 5
@@ -27,7 +22,7 @@
     },
     {
       "name": "Vader",
-      "number": "42343-4342",
+      "number": "1996",
       "id": 13
     },
     {
@@ -39,6 +34,11 @@
       "name": "dasd",
       "number": "3232",
       "id": 15
+    },
+    {
+      "name": "Lord Voldemort",
+      "number": "7",
+      "id": 16
     }
   ]
 }
