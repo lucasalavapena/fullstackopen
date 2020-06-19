@@ -35,23 +35,23 @@ let persons = [
     res.json(persons)
   })
   
-  // app.get('/api/persons/:id', (request, response) => {
-  //   const id = Number(request.params.id)
-  //   const person = persons.find(person => person.id === id)
+  app.get('/api/persons/:id', (request, response) => {
+    const id = Number(request.params.id)
+    const person = persons.find(person => person.id === id)
     
-  //   if (person) {
-  //     response.json(person)
-  //   } else {
-  //     response.status(404).end()
-  //   }
-  // })
+    if (person) {
+      response.json(person)
+    } else {
+      response.status(404).end()
+    }
+  })
 
-  // app.delete('/api/persons/:id', (request, response) => {
-  //   const id = Number(request.params.id)
-  //   persons = persons.filter(person => person.id !== id)
+  app.delete('/api/persons/:id', (request, response) => {
+    const id = Number(request.params.id)
+    persons = persons.filter(person => person.id !== id)
   
-  //   response.status(204).end()
-  // })
+    response.status(204).end()
+  })
 
   // const generateId = () => {
   //   const maxId = persons.length > 0
