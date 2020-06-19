@@ -53,33 +53,39 @@ let persons = [
     response.status(204).end()
   })
 
-  // const generateId = () => {
-  //   const maxId = persons.length > 0
-  //     ? Math.max(...persons.map(n => n.id))
-  //     : 0
-  //   return maxId + 1
-  // }
+  const generateId = () => {
+    const max = 100000
+    return Math.floor(Math.random() * Math.floor(max))
+  }
   
-  // app.post('/api/persons', (request, response) => {
-  //   const body = request.body
+  app.post('/api/persons', (request, response) => {
+    const body = request.body
   
-  //   if (!body.content) {
-  //     return response.status(400).json({ 
-  //       error: 'content missing' 
-  //     })
-  //   }
+    if (!body.name || !body.number) {
+      return response.status(400).json({ 
+        error: 'Name or Number is missing' 
+      })
+    }
+  console.log(persons.includes(body.name))
+  console.log((body.name))
+  console.log(persons.find(person => person.name === body.name))
   
-  //   const person = {
-  //     content: body.content,
-  //     important: body.important || false,
-  //     date: new Date(),
-  //     id: generateId(),
-  //   }
+    if (persons.includes(body.name)) {
+      return response.status(400).json({ 
+        error: 'Name must be unique' 
+      })
+    }
+
+    const person = {
+      name: body.name,
+      number: body.number,
+      id: generateId(),
+    }
   
-  //   persons = persons.concat(person)
+    persons = persons.concat(person)
   
-  //   response.json(person)
-  // })
+    response.json(person)
+  })
 
   const PORT = 3001
   app.listen(PORT, () => {
