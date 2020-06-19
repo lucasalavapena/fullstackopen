@@ -4,8 +4,11 @@ var morgan = require('morgan')
 const app = express()
 app.use(express.json())
 
+morgan.token('result', function(req, res) {
+  return JSON.stringify(req.body);
+});
 
-app.use(morgan('tiny'))  
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :result'))  
 
 let persons = [
   { 
@@ -71,11 +74,9 @@ let persons = [
         error: 'Name or Number is missing' 
       })
     }
-  console.log(persons.includes(body.name))
-  console.log((body.name))
-  console.log(persons.find(person => person.name === body.name))
-  
-    if (persons.includes(body.name)) {
+
+    names = persons.map(person => person.name)
+    if (names.includes(body.name)) {
       return response.status(400).json({ 
         error: 'Name must be unique' 
       })
