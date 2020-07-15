@@ -1,0 +1,34 @@
+{
+  "persons": [
+    {
+      "name": "Daniel R",
+      "number": "21",
+      "id": 5
+    },
+    {
+      "name": "Yoyo",
+      "number": "123-123456",
+      "id": 6
+    },
+    {
+      "name": "Luke",
+      "number": "3432423",
+      "id": 12
+    },
+    {
+      "name": "Vader",
+      "number": "1996",
+      "id": 13
+    },
+    {
+      "name": "Palpatine",
+      "number": "66",
+      "id": 14
+    },
+    {
+      "name": "Lord Voldemort",
+      "number": "7",
+      "id": 16
+    }
+  ]
+}
