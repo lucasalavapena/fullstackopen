@@ -33,7 +33,6 @@ const App = () => {
     const nameObject = {
       name: newName,
       number: newNumber,
-      id:persons[Object.keys(persons)[Object.keys(persons).length-1]].id+1
     }
     let originalEntry = persons.find(person => person.name === newName)
 
